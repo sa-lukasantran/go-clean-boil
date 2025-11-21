@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      # Mount source code for live reload
+      - .:/app
+      # Cache Go modules to speed up rebuilds
+      - go-modules:/go/pkg/mod
+    environment:
+      - CGO_ENABLED=0
+    # Optional: Add database or other services here
+    # depends_on:
+    #   - db
+
+volumes:
+  go-modules:
