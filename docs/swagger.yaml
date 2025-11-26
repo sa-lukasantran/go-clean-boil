@@ -1,0 +1,98 @@
+basePath: /
+definitions:
+  controller.ErrorResponse:
+    properties:
+      error:
+        example: Error message
+        type: string
+    type: object
+  controller.ExampleResponse:
+    properties:
+      data:
+        $ref: '#/definitions/entity.Example'
+    type: object
+  entity.Example:
+    properties:
+      description:
+        example: This is an example
+        type: string
+      id:
+        example: 1
+        type: integer
+    required:
+    - description
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+  description: A RESTful API built with Go, Gin, GORM, and PostgreSQL using Clean
+    Architecture principles
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Go Clean Architecture API
+  version: "1.0"
+paths:
+  /example:
+    post:
+      consumes:
+      - application/json
+      description: Create a new example with a description
+      parameters:
+      - description: Example object with description
+        in: body
+        name: example
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Example'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successfully created example
+          schema:
+            $ref: '#/definitions/controller.ExampleResponse'
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+        "500":
+          description: Failed to save example
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: Create a new example
+      tags:
+      - examples
+  /example/{exampleId}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a specific example by its ID
+      parameters:
+      - description: Example ID
+        example: '"1"'
+        in: path
+        name: exampleId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved example
+          schema:
+            $ref: '#/definitions/controller.ExampleResponse'
+        "404":
+          description: Example not found
+          schema:
+            $ref: '#/definitions/controller.ErrorResponse'
+      summary: Get an example by ID
+      tags:
+      - examples
+schemes:
+- http
+- https
+swagger: "2.0"

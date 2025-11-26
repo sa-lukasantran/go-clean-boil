@@ -4,6 +4,9 @@ FROM golang:1.25-alpine AS development
 # Install Air for live reload
 RUN go install github.com/air-verse/air@latest
 
+# Install swag
+RUN go install github.com/swaggo/swag/cmd/swag@latest
+
 # Set working directory
 WORKDIR /app
 
