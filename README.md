@@ -1,16 +1,19 @@
 # Source Code Structure
+
 - Domain (Entities): Pure go structs or interfaces - /entity
 - Use case (Application): Application-Specific business logic - /usecase
 - Persentation /presentation
-    - Controller: HTTP request handlers - /controller
-    - GrapQL: Grapql request handlers - /grapql
-    - Queue: Handle queue message - /queue
+  - Controller: HTTP request handlers - /controller
+  - GrapQL: Grapql request handlers - /grapql
+  - Queue: Handle queue message - /queue
 - Util: Shared command logic - /util
 - Cmd: Entrypoint - cmd
 - Adapter: DB, Redis, Connection - /adapters
 
 # Features
+
 ## Core / Architecture
+
 - [ ] Clean Architecture layering (entities, repository interfaces, use cases, adapters, infrastructure)
 - [ ] Dependency inversion via interfaces
 - [ ] Domain event bus (publish / subscribe, async handlers)
@@ -19,15 +22,43 @@
 - [ ] Clock abstraction (time provider)
 
 ## Configuration & Environment
+
 - [ ] Central config loader (env-based)
 - [ ] Feature flags system (in-memory, pluggable source)
 
 ## Logging & Error Handling
+
 - [ ] Structured JSON logging (Zap)
+Format:
+
+```json
+{
+  "level": "info",
+  "ts": 1625247600.123456,
+  "callstack": [],
+  "msg": "Server started",
+  "request_id": "abcd-1234-efgh-5678",
+  "status_code": 200,
+  "context": {
+    "user_id": "user-7890",
+    "method": "GET",
+    "path": "/api/v1/resource",
+    "duration_ms": 12.34
+  }
+}
+```
+
+Usage:
+
+```go
+logger.Info("User created", zap.String("user_id", userID), zap.Int("status_code", 201))
+```
+
 - [ ] Central error constants
 - [ ] Panic recovery middleware
 
 ## HTTP / API Layer
+
 - [ ] HTTP server (Chi)
 - [ ] Health check endpoint
 - [ ] Example user creation endpoint (use case wiring)
@@ -78,6 +109,7 @@
 - [ ] Request value map utilities
 
 ## Authentication & Authorization
+
 - [ ] JWT issuance (HS256)
 - [ ] JWT verification
 - [ ] Password hashing (bcrypt)
@@ -85,49 +117,59 @@
 - [ ] RBAC role checks
 
 ## Persistence & Data
+
 - [ ] Postgres connection setup (sql.DB)
 - [ ] User repository interface
 - [ ] Transaction manager interface
 - [ ] Redis client wrapper (JSON helpers)
 
 ## Caching & Rate Limiting
+
 - [ ] Redis-based caching utilities
 - [ ] In-memory rate limiter middleware
 - [ ] Response caching layer (pluggable)
 
 ## Messaging / Async
+
 - [ ] NATS client (publish / subscribe / request)
 - [ ] Kafka producer & consumer
 - [ ] Domain events bus (in-memory async)
 
 ## Observability
+
 - [ ] Prometheus metrics (request count & latency)
 - [ ] OpenTelemetry tracer initialization
 - [ ] Trace context propagation
 - [ ] Structured logging with correlation IDs
 
 ## Validation & Utilities
+
 - [ ] Field validation example (user name)
 - [ ] Pagination helper (offset calculation)
 - [ ] UUID-based ID generator
 - [ ] Clock abstraction
 
 ## File & Object Storage
+
 - [ ] Local filesystem wrapper
 - [ ] S3-compatible object storage (MinIO integration)
 
 ## Email / Notification
+
 - [ ] SMTP email sender
 
 ## Search
+
 - [ ] OpenSearch client (index documents)
 
 ## Scheduling / Background
+
 - [ ] Simple cron-like scheduler (ticker based)
 - [ ] Post-response async hook (fire-and-forget tasks)
 - [ ] Worker pool request throttling
 
 ## Security
+
 - [ ] CSRF token generator (stub)
 - [ ] CORS policy middleware
 - [ ] Security headers middleware
@@ -140,6 +182,7 @@
 - [ ] Geo-IP placeholder
 
 ## Performance & Reliability
+
 - [ ] Gzip compression
 - [ ] Retry middleware for transient failures
 - [ ] Concurrency limiting (worker pool)
@@ -148,18 +191,22 @@
 - [ ] Immutable caching headers
 
 ## Internationalization (i18n)
+
 - [ ] Translation bundle (lang/key map)
 - [ ] Language detection middleware
 
 ## Shutdown & Lifecycle
+
 - [ ] Graceful shutdown orchestration
 - [ ] Signal handling in main
 - [ ] Cleanup hooks
 
 ## Misc / Advanced
+
 - [ ] Feature flags (in-memory)
 - [ ] Request context value map
 - [ ] Debug / diagnostic middlewares
 - [ ] After-response hook
 - [ ] API version tagging
 - [ ] Correlation ID utilities
+
